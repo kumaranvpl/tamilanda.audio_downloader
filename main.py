@@ -48,7 +48,6 @@ def crawl_tamilanda(album_url, save_dir=False):
 
     for song_url in song_urls:
         song_name = song_url.split("/")[-1].split("&")[0]
-        print "Downloading " + song_name
 
         req = urllib2.Request(song_url, headers=hdr)
         u = urllib2.urlopen(req)
