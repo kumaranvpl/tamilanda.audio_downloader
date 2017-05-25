@@ -11,7 +11,8 @@ So I developed this tool to few minutes of my time.
 # How to download
 1. Get url for an album(example: http://tamilanda.audio/indexpc.php?dir=Music_Directors_Hits/Vijay_Antony/Yaman_(2017)/Yaman_(FLAC)&p=0&sort=0)
 2. Decide in which directory you want these album to download(Default: current directory)
-3. Run 'python main.py album_url'
+3. Create a virtual environment and install all the requirements
+4. Run 'python main.py album_url'
 
 # Example
 1. python main.py "http://tamilanda.audio/indexpc.php?dir=Music_Directors_Hits/Santhosh_Narayanan/Jigarthanda_(2014)/Jigarthanda_(2014-FLAC)&p=0&sort=0"
