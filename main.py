@@ -6,6 +6,7 @@ import fire
 import os
 import re
 import requests
+import urllib2
 
 
 def crawl_tamilanda(album_url, save_dir=False):
@@ -38,18 +39,39 @@ def crawl_tamilanda(album_url, save_dir=False):
         count += 1
         print `count` + ". " + song_url.split(".flac")[0].split("/")[-1]
 
+    hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+       'Accept-Encoding': 'none',
+       'Accept-Language': 'en-US,en;q=0.8',
+       'Connection': 'keep-alive'}
+
     for song_url in song_urls:
         song_name = song_url.split("/")[-1].split("&")[0]
         print "Downloading " + song_name
 
-        r = requests.get(song_url, stream=True)
+        req = urllib2.Request(song_url, headers=hdr)
+        u = urllib2.urlopen(req)
+        f = open(album_dir+"/"+song_name, 'wb')
+        meta = u.info()
+        file_size = int(meta.getheaders("Content-Length")[0])
+        print "Downloading: %s Bytes: %s" % (song_name, file_size)
 
-        # Total size in bytes.
-        total_size = int(r.headers.get('content-length', 0))
+        file_size_dl = 0
+        block_sz = 8192
+        while True:
+            buff = u.read(block_sz)
+            if not buff:
+                break
 
-        with open(album_dir+"/"+song_name, 'wb') as f:
-            for data in tqdm(r.iter_content(32*1024), total=total_size, unit='B', unit_scale=True):
-                f.write(data)
+            file_size_dl += len(buff)
+            f.write(buff)
+            status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
+            status = status + chr(8)*(len(status)+1)
+            print status,
+
+        f.close()
+
 
 def main():
     fire.Fire(crawl_tamilanda)
