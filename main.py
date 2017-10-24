@@ -48,11 +48,14 @@ def crawl_tamilanda(album_url, save_dir=False):
        'Connection': 'keep-alive'}
 
     for song_url in song_urls:
-        # print song_url
         song_name = song_url.split("/")[-1].split("&")[0]
         song_url = song_url.replace(" ", "%20") # URL encode space
-        # print song_url
-        req = urllib2.Request(song_url, headers=hdr)
+
+        song_path = album_dir+"/"+song_name
+        wget_command = "wget -c '" + song_url + "' -O " + "'" + song_path + "'"
+
+        os.system(wget_command)
+        """req = urllib2.Request(song_url, headers=hdr)
         u = urllib2.urlopen(req)
         f = open(album_dir+"/"+song_name, 'wb')
         meta = u.info()
@@ -72,7 +75,7 @@ def crawl_tamilanda(album_url, save_dir=False):
             status = status + chr(8)*(len(status)+1)
             print status,
 
-        f.close()
+        f.close()"""
 
 
 def main():
