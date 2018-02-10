@@ -1,10 +1,8 @@
 from  bs4 import BeautifulSoup
-from tqdm import tqdm
 from urllib.parse import urlparse
 
 import fire
 import os
-import re
 import requests
 
 
