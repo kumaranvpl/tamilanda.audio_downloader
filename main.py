@@ -1,4 +1,4 @@
-from  bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
 import fire
@@ -37,15 +37,15 @@ def crawl_tamilanda(album_url, save_dir=False):
         print(str(count) + ". " + song_url.split(".flac")[0].split("/")[-1])
 
     hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
-       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-       'Accept-Encoding': 'none',
-       'Accept-Language': 'en-US,en;q=0.8',
-       'Connection': 'keep-alive'}
+           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+           'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+           'Accept-Encoding': 'none',
+           'Accept-Language': 'en-US,en;q=0.8',
+           'Connection': 'keep-alive'}
 
     for song_url in song_urls:
         song_name = song_url.split("/")[-1].split("&")[0]
-        song_url = song_url.replace(" ", "%20") # URL encode space
+        song_url = song_url.replace(" ", "%20")  # URL encode space
 
         song_path = album_dir+"/"+song_name
         wget_command = "wget -c '" + song_url + "' -O " + "'" + song_path + "'"
@@ -55,6 +55,7 @@ def crawl_tamilanda(album_url, save_dir=False):
 
 def main():
     fire.Fire(crawl_tamilanda)
+
 
 if __name__ == "__main__":
     main()
