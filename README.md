@@ -22,6 +22,7 @@ So I developed this tool to save few minutes of my time.
 1. Downloads all songs of an album to separate directory
 2. Downloads to given location
 3. Can show progress for each song download
+4. Auto resume feature. If download fails just rerun the program. It will skip already downloaded files and resumes the failed ones. Thanks to wget for this.
 
 # ToDo
 1. Download by giving just the album name instead of whole album url
